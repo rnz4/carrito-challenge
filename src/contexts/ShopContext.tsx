@@ -4,7 +4,10 @@ import { IPotion } from "../interfaces/PotionInterface";
 interface IShopContext {
   addProduct: Function,
   removeProduct: Function,
+  hasEnoughGems: Function,
+  categoryAlreadyExist: Function,
   shopList: IPotion[],
+  gems: Number
 }
 
 type IShopProvider = {
@@ -14,19 +17,29 @@ type IShopProvider = {
 const ShopContext = React.createContext<IShopContext>({
   addProduct: (arg0: IPotion) => {},
   removeProduct: (arg0: number) => {},
+  hasEnoughGems: (arg0: number) => {},
+  categoryAlreadyExist: (arg0: string) => {},
   shopList: [],
+  gems: 0
 });
 
 const ShopProvider: React.FC<IShopProvider> = ({ children } ) => {
   const [shopList, setShopList] = React.useState<IPotion[]>([])
+  const [gems, setGems] = React.useState<number>(3)
 
+  const hasEnoughGems =( price: number)=>{
+    return gems >= price 
+  }
 
+  const categoryAlreadyExist = (category: string) =>{
+    console.log(category)
+    return shopList.some((item) => item.categoria == category);
+  }
 
   const addProduct = (potion: IPotion) => {
     const _shopList = [...shopList]
     _shopList.push(potion)
     setShopList(_shopList)
-
   }
 
   const removeProduct = ( potion: IPotion ) => {
@@ -36,13 +49,13 @@ const ShopProvider: React.FC<IShopProvider> = ({ children } ) => {
 
   console.log(shopList)
 
-  return <ShopContext.Provider value={{ addProduct, removeProduct, shopList }}>{ children}</ShopContext.Provider>
+  return <ShopContext.Provider value={{ addProduct, removeProduct, hasEnoughGems, categoryAlreadyExist, gems, shopList }}>{ children}</ShopContext.Provider>
 }
 
 function useShop() {
-  const { addProduct, removeProduct, shopList } = React.useContext(ShopContext)
+  const { addProduct, removeProduct, hasEnoughGems, categoryAlreadyExist, gems, shopList } = React.useContext(ShopContext)
 
-  return { addProduct, removeProduct, shopList  }
+  return { addProduct, removeProduct, hasEnoughGems, categoryAlreadyExist, gems, shopList  }
 }
 
 export { useShop, ShopProvider }
