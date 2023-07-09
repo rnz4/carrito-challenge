@@ -40,11 +40,15 @@ const ShopProvider: React.FC<IShopProvider> = ({ children } ) => {
     const _shopList = [...shopList]
     _shopList.push(potion)
     setShopList(_shopList)
+
+    setGems(gems - potion.precio)
   }
 
   const removeProduct = ( potion: IPotion ) => {
     const shopListFiltered = shopList.filter(item => item.id !== potion.id);
     setShopList(shopListFiltered)
+
+    setGems(gems + potion.precio)
   }
 
   console.log(shopList)
