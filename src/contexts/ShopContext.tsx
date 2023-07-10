@@ -1,6 +1,8 @@
 import * as React from "react";
 import { IPotion } from "../interfaces/PotionInterface";
 
+const DEFAULT_GEMS = 3;
+
 interface IShopContext {
   addProduct: Function;
   removeProduct: Function;
@@ -27,7 +29,7 @@ const ShopContext = React.createContext<IShopContext>({
 
 const ShopProvider: React.FC<IShopProvider> = ({ children }) => {
   const [shopList, setShopList] = React.useState<IPotion[]>([]);
-  const [gems, setGems] = React.useState<number>(3);
+  const [gems, setGems] = React.useState<number>(DEFAULT_GEMS);
 
   const hasEnoughGems = (price: number) => {
     return gems >= price;

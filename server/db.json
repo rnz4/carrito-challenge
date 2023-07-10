@@ -41,5 +41,22 @@
       "imagen": "http://localhost:3000/Icon5.png"
     }
   ],
-  "compras": []
+  "compras": [
+    [
+      1,
+      2
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      1,
+      2
+    ]
+  ]
 }

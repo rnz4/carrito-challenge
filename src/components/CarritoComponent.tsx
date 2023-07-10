@@ -12,10 +12,22 @@ export const CarritoComponent = ({ hideCart }: IShoppingCart) => {
   const [showCart, setShowCart] = useState(true);
   const [disableBuyBtn, setDisableBuyBtn] = useState(false);
 
-  const buyCart = () => {
-    clearShopList();
-    setShowCart(false);
-    setDisableBuyBtn(true);
+  const buyCart = async () => {
+    const ShopListID = shopList.map((item) => item.id);
+
+    const response = await fetch("http://localhost:3001/compras/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(ShopListID),
+    });
+
+    if (response.status == 201) {
+      clearShopList();
+      setShowCart(false);
+      setDisableBuyBtn(true);
+    }
   };
 
   const onBackHandler = () => {
@@ -32,7 +44,10 @@ export const CarritoComponent = ({ hideCart }: IShoppingCart) => {
       <div className="mt-6 mb-6">
         {showCart ? (
           shopList.map((potion: IPotion) => (
-            <div className="flex items-center justify-between h-[50px] bg-[#44403C] border-b-2 border-[#757563] px-4">
+            <div
+              key={potion.id}
+              className="flex items-center justify-between h-[50px] bg-[#44403C] border-b-2 border-[#757563] px-4"
+            >
               <img
                 src={potion.imagen}
                 className="rounded-full w-10 h-10 bg-[#6C6C55]"
