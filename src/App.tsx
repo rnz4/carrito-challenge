@@ -4,10 +4,14 @@ import { HeaderComponent } from "./components/HeaderComponent";
 import { ListadoProductosComponent } from "./components/ListadoProductosComponent";
 
 function App() {
-  const [showCarrito, setShowCarrito] = useState(false);
+  const [shoppingCart, setShoppingCart] = useState(false);
 
-  const toggle =()=>{
-    setShowCarrito(!showCarrito)
+  const showShoppingCart =()=>{
+    setShoppingCart(true)
+  }
+
+  const hideShoppingCart =()=>{
+    setShoppingCart(false)
   }
   
   return (
@@ -15,10 +19,10 @@ function App() {
       className="min-h-full bg-fixed"
       style={{ backgroundImage: "url(background.webp)" }}
     >
-      <HeaderComponent toggle={toggle}/>
+      <HeaderComponent showCart={showShoppingCart}/>
       <div className="flex justify-center min-h-full">
         <div className="max-w-lg w-full py-16">
-          {showCarrito ? <CarritoComponent /> : <ListadoProductosComponent />}
+          {shoppingCart ? <CarritoComponent hideCart={hideShoppingCart}/> : <ListadoProductosComponent />}
         </div>
       </div>
     </div>

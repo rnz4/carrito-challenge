@@ -6,8 +6,9 @@ interface IShopContext {
   removeProduct: Function,
   hasEnoughGems: Function,
   categoryAlreadyExist: Function,
+  clearShopList: Function,
   shopList: IPotion[],
-  gems: Number
+  gems: Number,
 }
 
 type IShopProvider = {
@@ -19,8 +20,9 @@ const ShopContext = React.createContext<IShopContext>({
   removeProduct: (arg0: number) => {},
   hasEnoughGems: (arg0: number) => {},
   categoryAlreadyExist: (arg0: string) => {},
+  clearShopList: ()=> {},
   shopList: [],
-  gems: 0
+  gems: 0,
 });
 
 const ShopProvider: React.FC<IShopProvider> = ({ children } ) => {
@@ -51,15 +53,19 @@ const ShopProvider: React.FC<IShopProvider> = ({ children } ) => {
     setGems(gems + potion.precio)
   }
 
+  const clearShopList=()=>{
+    setShopList([])
+  }
+
   console.log(shopList)
 
-  return <ShopContext.Provider value={{ addProduct, removeProduct, hasEnoughGems, categoryAlreadyExist, gems, shopList }}>{ children}</ShopContext.Provider>
+  return <ShopContext.Provider value={{ addProduct, removeProduct, hasEnoughGems, categoryAlreadyExist, clearShopList, gems, shopList }}>{ children}</ShopContext.Provider>
 }
 
 function useShop() {
-  const { addProduct, removeProduct, hasEnoughGems, categoryAlreadyExist, gems, shopList } = React.useContext(ShopContext)
+  const { addProduct, removeProduct, hasEnoughGems, categoryAlreadyExist, clearShopList, gems, shopList } = React.useContext(ShopContext)
 
-  return { addProduct, removeProduct, hasEnoughGems, categoryAlreadyExist, gems, shopList  }
+  return { addProduct, removeProduct, hasEnoughGems, categoryAlreadyExist, clearShopList, gems, shopList  }
 }
 
 export { useShop, ShopProvider }
