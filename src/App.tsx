@@ -6,23 +6,27 @@ import { ListadoProductosComponent } from "./components/ListadoProductosComponen
 function App() {
   const [shoppingCart, setShoppingCart] = useState(false);
 
-  const showShoppingCart =()=>{
-    setShoppingCart(true)
-  }
+  const showShoppingCart = () => {
+    setShoppingCart(true);
+  };
 
-  const hideShoppingCart =()=>{
-    setShoppingCart(false)
-  }
-  
+  const hideShoppingCart = () => {
+    setShoppingCart(false);
+  };
+
   return (
     <div
       className="min-h-full bg-fixed"
       style={{ backgroundImage: "url(background.webp)" }}
     >
-      <HeaderComponent showCart={showShoppingCart}/>
+      <HeaderComponent showCart={showShoppingCart} />
       <div className="flex justify-center min-h-full">
         <div className="max-w-lg w-full py-16">
-          {shoppingCart ? <CarritoComponent hideCart={hideShoppingCart}/> : <ListadoProductosComponent />}
+          {shoppingCart ? (
+            <CarritoComponent hideCart={hideShoppingCart} />
+          ) : (
+            <ListadoProductosComponent />
+          )}
         </div>
       </div>
     </div>

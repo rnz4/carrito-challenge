@@ -1,11 +1,11 @@
 import { useShop } from "../contexts/ShopContext";
 
 interface IHeader {
-  showCart: ()=> void;
+  showCart: () => void;
 }
 
-export const HeaderComponent = ({showCart}:IHeader) => {
-  const { gems, shopList } = useShop()
+export const HeaderComponent = ({ showCart }: IHeader) => {
+  const { gems, shopList } = useShop();
 
   return (
     <div className="bg-stone-700 py-4 px-8 flex justify-between items-center sticky top-0 shadow-md z-10">
@@ -14,7 +14,10 @@ export const HeaderComponent = ({showCart}:IHeader) => {
         <img src="./gem.png" />
         <span>{`${gems} Gemas`}</span>
       </div>
-      <button className="text-white hover:underline" onClick={showCart}>{`Ver Carrito (${shopList.length})`}</button>
+      <button
+        className="text-white hover:underline"
+        onClick={showCart}
+      >{`Ver Carrito (${shopList.length})`}</button>
     </div>
   );
 };
