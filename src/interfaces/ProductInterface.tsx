@@ -1,4 +1,4 @@
-export interface IPotion {
+export interface IProduct {
   id: number;
   precio: number;
   imagen: string;

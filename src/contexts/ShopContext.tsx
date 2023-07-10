@@ -1,5 +1,5 @@
 import * as React from "react";
-import { IPotion } from "../interfaces/PotionInterface";
+import { IProduct } from "../interfaces/ProductInterface";
 
 const DEFAULT_GEMS = 3;
 
@@ -9,7 +9,7 @@ interface IShopContext {
   hasEnoughGems: Function;
   categoryAlreadyExist: Function;
   clearShopList: Function;
-  shopList: IPotion[];
+  shopList: IProduct[];
   gems: Number;
 }
 
@@ -18,7 +18,7 @@ type IShopProvider = {
 };
 
 const ShopContext = React.createContext<IShopContext>({
-  addProduct: (arg0: IPotion) => {},
+  addProduct: (arg0: IProduct) => {},
   removeProduct: (arg0: number) => {},
   hasEnoughGems: (arg0: number) => {},
   categoryAlreadyExist: (arg0: string) => {},
@@ -28,7 +28,7 @@ const ShopContext = React.createContext<IShopContext>({
 });
 
 const ShopProvider: React.FC<IShopProvider> = ({ children }) => {
-  const [shopList, setShopList] = React.useState<IPotion[]>([]);
+  const [shopList, setShopList] = React.useState<IProduct[]>([]);
   const [gems, setGems] = React.useState<number>(DEFAULT_GEMS);
 
   const hasEnoughGems = (price: number) => {
@@ -39,7 +39,7 @@ const ShopProvider: React.FC<IShopProvider> = ({ children }) => {
     return shopList.some((item) => item.categoria == category);
   };
 
-  const addProduct = (potion: IPotion) => {
+  const addProduct = (potion: IProduct) => {
     const _shopList = [...shopList];
     _shopList.push(potion);
     setShopList(_shopList);
@@ -47,7 +47,7 @@ const ShopProvider: React.FC<IShopProvider> = ({ children }) => {
     setGems(gems - potion.precio);
   };
 
-  const removeProduct = (potion: IPotion) => {
+  const removeProduct = (potion: IProduct) => {
     const shopListFiltered = shopList.filter((item) => item.id !== potion.id);
     setShopList(shopListFiltered);
 

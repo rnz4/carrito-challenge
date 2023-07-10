@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useShop } from "../contexts/ShopContext";
-import { IPotion } from "../interfaces/PotionInterface";
+import { IProduct } from "../interfaces/ProductInterface";
 import { Button } from "./common/Button";
 
 interface IShoppingCart {
@@ -43,7 +43,7 @@ export const CarritoComponent = ({ hideCart }: IShoppingCart) => {
 
       <div className="mt-6 mb-6">
         {showCart ? (
-          shopList.map((potion: IPotion) => (
+          shopList.map((potion: IProduct) => (
             <div
               key={potion.id}
               className="flex items-center justify-between h-[50px] bg-[#44403C] border-b-2 border-[#757563] px-4"

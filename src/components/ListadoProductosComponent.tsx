@@ -1,39 +1,38 @@
 import { useEffect, useState } from "react";
-import { PotionCard } from "./PotionCard";
-import { IPotion } from "../interfaces/PotionInterface";
+import { ProductCard } from "./ProductCard";
+import { IProduct } from "../interfaces/ProductInterface";
 import { useShop } from "../contexts/ShopContext";
 
 export const ListadoProductosComponent = () => {
-  const [potionsArray, setPotionsArray] = useState([]);
+  const [productsArray, setProductsArray] = useState([]);
   const { addProduct, shopList, hasEnoughGems, categoryAlreadyExist } =
     useShop();
 
-  const fetchPotions = async () => {
-    const potionsResponse = await fetch("http://localhost:3001/productos");
-    const potions = await potionsResponse.json();
-    setPotionsArray(potions);
+  const fetchProducts = async () => {
+    const productsResponse = await fetch("http://localhost:3001/productos");
+    const products = await productsResponse.json();
+    setProductsArray(products);
   };
 
   useEffect(() => {
-    fetchPotions();
+    fetchProducts();
   }, []);
 
-  console.log(shopList);
   return (
     <div className="flex flex-row gap-8 flex-wrap w-auto pl-8">
-      {potionsArray.map((potion: IPotion) => (
-        <PotionCard
-          key={potion.id}
-          gemas={potion.precio}
-          imageUrl={potion.imagen}
-          title={potion.nombre}
-          description={potion.descripcion}
+      {productsArray.map((product: IProduct) => (
+        <ProductCard
+          key={product.id}
+          gemas={product.precio}
+          imageUrl={product.imagen}
+          title={product.nombre}
+          description={product.descripcion}
           addProduct={() => {
-            addProduct(potion);
+            addProduct(product);
           }}
           disabled={
-            !hasEnoughGems(potion.precio) ||
-            categoryAlreadyExist(potion.categoria)
+            !hasEnoughGems(product.precio) ||
+            categoryAlreadyExist(product.categoria)
           }
         />
       ))}
